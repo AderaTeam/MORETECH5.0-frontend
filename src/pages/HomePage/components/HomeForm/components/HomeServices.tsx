@@ -4,9 +4,11 @@ interface servicesProps {
   userRole: string,
   setUserRole: React.Dispatch<React.SetStateAction<string>>,
   services: {[key: string]: string}[] | undefined,
+  setSelectValue: React.Dispatch<React.SetStateAction<string | null>>,
+  selectValue: string | null,
 }
 
-const HomeServices = ({userRole, setUserRole, services}: servicesProps) => {
+const HomeServices = ({userRole, setUserRole, services, setSelectValue, selectValue}: servicesProps) => {
   const selectData = services?.map(item => Object.keys(item)[0]);
 
   return (
@@ -31,16 +33,17 @@ const HomeServices = ({userRole, setUserRole, services}: servicesProps) => {
         searchable
         data={selectData ? selectData : []}
         size="md"
+        onChange={setSelectValue}
+        value={selectValue}
       />
       <Accordion>
         <Accordion.Item className="accordion" value="customization">
           <Accordion.Control className="test">Особые услуги</Accordion.Control>
           <Accordion.Panel>
             <Checkbox.Group
-              defaultValue={['react']}
             >
               <Stack spacing={4}>
-                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="react" label="Пандус" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="react" label="Наличие пандуса" />
                 <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="svelte" label="Зона премиального обслуживания" />
                 <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="ng" label="Парковка" />
               </Stack>

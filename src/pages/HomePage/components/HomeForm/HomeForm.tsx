@@ -11,9 +11,11 @@ interface Services {
 
 const HomeForm = () => {
   const [userRole, setUserRole] = useState<string>('individual');
-  const [services, setServices] = useState<Services[]>()
+  const [services, setServices] = useState<Services[]>();
+  const [selectValue, setSelectValue] = useState<string | null>(null);
 
   useEffect(() => {
+    setSelectValue('');
     try {
       $api.get(`/data/${userRole}`, {}).then(response => {
         setServices(response.data);
@@ -26,7 +28,13 @@ const HomeForm = () => {
   return (
     <Stack style={{borderRadius: '32px'}} p={'32px 24px'} spacing={24} bg={'white.0'}>
       <TitleWrapper/>
-      <HomeServices services={services} userRole={userRole} setUserRole={setUserRole}/>
+      <HomeServices 
+        services={services} 
+        userRole={userRole} 
+        setUserRole={setUserRole}
+        setSelectValue={setSelectValue}
+        selectValue={selectValue}
+      />
       <Button 
         color="brand.0" 
         size="md" 
