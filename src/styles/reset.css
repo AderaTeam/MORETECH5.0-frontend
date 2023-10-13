@@ -3,7 +3,6 @@ body {
 	font-weight: 400;
 	background-color: white;
   font-family: 'VTBGroup';
-  color: #2F3441;
 }
 
 * {
@@ -98,12 +97,6 @@ label {
 
 legend {
 	display: block;
-}
-
-#nav a.active, a.hover div{
-    background: #4263EB;
-	color: white;
-	border-radius: 8px;
 }
 
 html {

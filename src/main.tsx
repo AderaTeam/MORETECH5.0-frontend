@@ -51,6 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             borderBottom: 'none',
             button: {
               padding: 0,
+              '&:hover': {background: 'none'}
             },
             span: {
               color: '#2F3441',
@@ -79,7 +80,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             span: {
               padding: '0'
             }
-          }
+          },
         }),
         defaultRadius: '0.5rem',
         fontFamily: 'VTBGroup, sans-serif',

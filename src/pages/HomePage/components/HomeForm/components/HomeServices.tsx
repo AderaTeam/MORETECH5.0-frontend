@@ -32,11 +32,10 @@ const HomeServices = ({userRole, setUserRole}: servicesProps) => {
       />
       <Accordion>
         <Accordion.Item className="accordion" value="customization">
-          <Accordion.Control>Особые услуги</Accordion.Control>
+          <Accordion.Control className="test">Особые услуги</Accordion.Control>
           <Accordion.Panel>
             <Checkbox.Group
               defaultValue={['react']}
-              withAsterisk
             >
               <Stack spacing={4}>
                 <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="react" label="Пандус" />
