@@ -2,10 +2,12 @@ import { Accordion, Checkbox, SegmentedControl, Select, Stack } from "@mantine/c
 
 interface servicesProps {
   userRole: string,
-  setUserRole: React.Dispatch<React.SetStateAction<string>>
+  setUserRole: React.Dispatch<React.SetStateAction<string>>,
+  services: {[key: string]: string}[] | undefined,
 }
 
-const HomeServices = ({userRole, setUserRole}: servicesProps) => {
+const HomeServices = ({userRole, setUserRole, services}: servicesProps) => {
+  const selectData = services?.map(item => Object.keys(item)[0]);
 
   return (
     <Stack spacing={16}>
@@ -27,7 +29,7 @@ const HomeServices = ({userRole, setUserRole}: servicesProps) => {
         label='Нужная услуга'
         placeholder="Оформление карты"
         searchable
-        data={['1', '2']}
+        data={selectData ? selectData : []}
         size="md"
       />
       <Accordion>

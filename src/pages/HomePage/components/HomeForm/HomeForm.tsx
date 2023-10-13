@@ -15,18 +15,18 @@ const HomeForm = () => {
 
   useEffect(() => {
     try {
-      $api.post('', {}).then(response => {
+      $api.get(`/data/${userRole}`, {}).then(response => {
         setServices(response.data);
       });
     } catch (error) {
       console.log(error)
     }
-  }, [userRole])
+  }, [userRole]);
 
   return (
     <Stack style={{borderRadius: '32px'}} p={'32px 24px'} spacing={24} bg={'white.0'}>
       <TitleWrapper/>
-      <HomeServices userRole={userRole} setUserRole={setUserRole}/>
+      <HomeServices services={services} userRole={userRole} setUserRole={setUserRole}/>
       <Button 
         color="brand.0" 
         size="md" 
