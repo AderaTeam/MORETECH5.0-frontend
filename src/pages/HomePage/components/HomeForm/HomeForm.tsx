@@ -13,6 +13,7 @@ const HomeForm = () => {
   const [userRole, setUserRole] = useState<string>('individual');
   const [services, setServices] = useState<Services[]>();
   const [selectValue, setSelectValue] = useState<string | null>(null);
+  const [special, setSpecial] = useState<string[]>([]);
 
   useEffect(() => {
     setSelectValue('');
@@ -25,6 +26,26 @@ const HomeForm = () => {
     }
   }, [userRole]);
 
+  const handleSearch = () => {
+    console.log({
+      role: userRole, 
+      special: special, 
+      service: selectValue
+    })
+    /*try {
+      $api.post(``, 
+      {
+        role: userRole, 
+        special: special, 
+        service: selectValue
+      }).then(response => {
+        console.log(response.data);
+      });
+    } catch (error) {
+      console.log(error)
+    }*/
+  }
+
   return (
     <Stack style={{borderRadius: '32px'}} p={'32px 24px'} spacing={24} bg={'white.0'}>
       <TitleWrapper/>
@@ -34,13 +55,16 @@ const HomeForm = () => {
         setUserRole={setUserRole}
         setSelectValue={setSelectValue}
         selectValue={selectValue}
+        special={special}
+        setSpecial={setSpecial}
       />
       <Button 
         color="brand.0" 
         size="md" 
         fullWidth 
         className="button"
-        rightIcon={<IconMapPin stroke={1.5}/>}  
+        rightIcon={<IconMapPin stroke={1.5}/>}
+        onClick={handleSearch}  
       >
         Найти отделения
       </Button>

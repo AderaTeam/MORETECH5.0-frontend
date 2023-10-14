@@ -1,10 +1,9 @@
 import { BrowserRouter } from "react-router-dom"
 import { YMaps } from "@pbe/react-yandex-maps"
-import { Loader, Stack, em } from "@mantine/core"
+import { Loader, Stack } from "@mantine/core"
 import { useContext, useEffect, useState } from "react"
 import { Context } from "./main"
 import { observer } from "mobx-react-lite"
-import { useMediaQuery } from "@mantine/hooks"
 import { ILocation } from "./models/ILocation"
 
 import AppRouter from "./components/AppRouter"
@@ -16,31 +15,32 @@ import './fonts/VTBGroupUI-Regular/VTBGroupUI-Regular_stylesheet.css';
 
 const App = observer(function () {
   const { UStore } = useContext(Context);
-  const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
   const [userLocation, setUserLocation] = useState<ILocation>();
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({ latitude, longitude });
-        },
-        (error) => {
-          console.error('Error getting user location:', error);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
+    try {
+      UStore.setLoading(true);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setUserLocation({ latitude, longitude });
+          },
+          (error) => {
+            console.error('Error getting user location:', error);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    } finally {
+      UStore.setLoading(false);
     }
+  
   }, []);
 
   useEffect(() => {
-    UStore.setIsMobile(isMobile);
-  }, [isMobile]);
-
-  useEffect(() => {
-    userLocation && setUserLocation(userLocation);
+    userLocation && UStore.setUserLocation(userLocation);
   }, [userLocation]);
 
   if (UStore.isLoading) {
@@ -53,7 +53,7 @@ const App = observer(function () {
 
   return (
     <BrowserRouter>
-      <YMaps>
+      <YMaps query={{apikey: '5fff5614-b0c5-4970-b75d-28aa88c46171'}}>
         <AppRouter/>
       </YMaps>
     </BrowserRouter>

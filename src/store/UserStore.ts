@@ -7,24 +7,25 @@ export default class UserStore {
     user = {} as IUser;
     isAuth = false;
     isLoading = false;
-    isMobile = false;
     userLocation = {} as ILocation | undefined;
+    userAddress: string | undefined = undefined;
 
     constructor() {
       makeAutoObservable(this);
       this.userLocation = undefined;
+      this.userAddress = undefined;
     }
 
     setAuth(bool: boolean) {
       this.isAuth = bool;
     }
 
-    setIsMobile(isMobile: boolean) {
-      this.isMobile = isMobile;
-    }
-
     setUserLocation(userLocation: ILocation) {
       this.userLocation = userLocation;
+    }
+
+    setUserAddress(address: string) {
+      this.userAddress = address;
     }
 
     setUser(user: IUser) {

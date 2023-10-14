@@ -3,19 +3,23 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { MantineProvider } from '@mantine/core';
 import UserStore from './store/UserStore.ts';
+import { MapStore } from './store/MapStore.ts';
 
 interface State {
   UStore: UserStore,
+  MSore: MapStore,
 }
 
 const UStore = new UserStore();
+const MSore = new MapStore();
 
 export const Context = createContext<State>({
   UStore,
+  MSore
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Context.Provider value={{UStore}}>
+  <Context.Provider value={{UStore, MSore}}>
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS

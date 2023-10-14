@@ -6,9 +6,19 @@ interface servicesProps {
   services: {[key: string]: string}[] | undefined,
   setSelectValue: React.Dispatch<React.SetStateAction<string | null>>,
   selectValue: string | null,
+  special: string[],
+  setSpecial: React.Dispatch<React.SetStateAction<string[]>>,
 }
 
-const HomeServices = ({userRole, setUserRole, services, setSelectValue, selectValue}: servicesProps) => {
+const HomeServices = ({
+  userRole, 
+  setUserRole, 
+  services, 
+  setSelectValue, 
+  selectValue,
+  setSpecial,
+  special,
+}: servicesProps) => {
   const selectData = services?.map(item => Object.keys(item)[0]);
 
   return (
@@ -41,11 +51,13 @@ const HomeServices = ({userRole, setUserRole, services, setSelectValue, selectVa
           <Accordion.Control className="test">Особые услуги</Accordion.Control>
           <Accordion.Panel>
             <Checkbox.Group
+              value={special}
+              onChange={setSpecial}
             >
               <Stack spacing={4}>
-                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="react" label="Наличие пандуса" />
-                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="svelte" label="Зона премиального обслуживания" />
-                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="ng" label="Парковка" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="ramp" label="Наличие пандуса" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="premium" label="Зона премиального обслуживания" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="parking" label="Парковка" />
               </Stack>
             </Checkbox.Group>
           </Accordion.Panel>

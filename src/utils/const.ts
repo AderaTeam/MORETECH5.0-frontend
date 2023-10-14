@@ -1,9 +1,4 @@
 export const HOME_ROUTE = '/';
-export const PLAN_ROUTE = '/plan';
-export const TEST_ROUTE = '/test';
-export const RESULT_ROUTE = '/test/result';
+export const MAP_ROUTE = '/map';
 export const LOGIN_ROUTE = '/login';
 export const REGISTRATION_ROUTE = '/registration';
-export const ANALYSIS_ROUTE = '/analysis';
-export const HISTORY_ROUTE = '/history';
-export const CURRENT_ANALYSIS_ROUT = '/analysis';

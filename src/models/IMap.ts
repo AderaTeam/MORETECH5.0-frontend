@@ -1,0 +1,18 @@
+interface IMap {
+  address: string,
+  distance: string,
+  hasRamp: ["Y", "N"],
+  id: number,
+  kep: string,
+  latitude: string,
+  longitude: string,
+  metroStation: string | null,
+  myBranch: ['true', 'false'],
+  officeType: string,
+  openHours: IOpenHours[],
+  openHoursIndividual: IOpenHours[],
+  rko: ["нет РКО", "есть РКО"],
+  salePointFormat: string,
+  salePointName: string,
+  suoAvailability: ["Y", "N"],
+}
