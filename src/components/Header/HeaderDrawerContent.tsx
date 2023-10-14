@@ -7,6 +7,7 @@ import { ActionIcon, Button, Flex, TextInput } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
 import { Context } from "../../main";
 import axios from "axios";
+import { observer } from "mobx-react-lite";
 
 interface props {
   close: (() => void),
@@ -46,8 +47,7 @@ const HeaderDrawerContent = ({close}: props) => {
         axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=${UStore.userCity},${address}`)
         .then(response => {
           const result = response.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ');
-            
-          console.log(result);
+          UStore.setUserLocation({longitude: result[0], latitude: result[1]});
         })
       } catch (error) {
         console.log(error)
@@ -95,4 +95,4 @@ const HeaderDrawerContent = ({close}: props) => {
   );
 }
 
-export default HeaderDrawerContent;
+export default observer(HeaderDrawerContent);
