@@ -4,10 +4,9 @@ import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
 import { Flex } from "@mantine/core"; 
 import { YMapsModules } from "@pbe/react-yandex-maps/typings/util/typing";
-import ymaps from "yandex-maps";
 
 interface typesOfMissionProps {
-  [key: string] : [YMapsModules | undefined, ((api: typeof ymaps) => void) | undefined],
+  [key: string] : [YMapsModules | undefined, ((api: any) => void) | undefined],
 }
 
 const MapComponent = () => {
@@ -22,7 +21,7 @@ const MapComponent = () => {
 
   const addRoute = (ymaps: any) => {
     const pointA = [55.03123, 73.28743];
-    const pointB = [55.02510, 73.29721]; 
+    const pointB = [55.0443, 73.31522]; 
 
     const multiRoute = new ymaps.multiRouter.MultiRoute(
       {

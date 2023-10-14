@@ -1,26 +1,39 @@
 import { ActionIcon, Box, Divider, Flex, Image, Stack, Text } from "@mantine/core";
 import { IMap } from "../../../models/IMap";
 import { IconChevronRight } from "@tabler/icons-react";
-import ymaps from "yandex-maps";
 
 import easy from '../../../assets/easy.svg';
 import medium from '../../../assets/medium.svg';
 import hard from '../../../assets/hard.svg';
-import { useYMaps } from "@pbe/react-yandex-maps";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../../main";
 
 interface oficceProp {
-  office: IMap
+  office: IMap,
+  ymaps: any,
 }
 
-const OfficeItem = ({office}: oficceProp) => {
+const OfficeItem = ({office, ymaps}: oficceProp) => {
+  const {UStore} = useContext(Context);
+  const [distance, setDistance] = useState();
+
   const icon = {
     'easy': easy,
     'medium': medium,
     'hard': hard,
   };
-  const ymaps = useYMaps(['Map']);
 
+  useEffect(() => {
+    const data = ymaps.panorama.Base.createPanorama({
+      angularBBox: [],
+      position: [],
+      tilesLevels: [],
+      tileSize: []
+    }).getCoordSystem().getDistance([office.longitude, office.latitude], [
+      UStore.userLocation?.longitude!, UStore.userLocation?.latitude!
+    ]);
+    setDistance(data)
+  }, [])
 
   return (
     <Stack spacing={11}>
@@ -45,7 +58,7 @@ const OfficeItem = ({office}: oficceProp) => {
             {office.salePointName}
           </Text>
           <Text color="gray.2" size={'sm'} lh={'15px'}>
-            {office.distance} метров
+            {distance && Math.trunc(distance)} метров
           </Text>
         </Stack>
         <ActionIcon size={'md'} color="gray.5" variant="filled">
