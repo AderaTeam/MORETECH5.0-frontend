@@ -50,7 +50,7 @@ const AuthPage = observer(function() {
     if (location.pathname === '/login') { 
       await UStore.login(email, password)
     } else {
-      await UStore.registration(username, email, password, role)
+      await UStore.registration(username, email, password)
     }
     if (UStore.isAuth) {
       navigate('/')

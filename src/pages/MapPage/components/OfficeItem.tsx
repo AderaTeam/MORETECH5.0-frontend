@@ -10,12 +10,12 @@ import { Context } from "../../../main";
 interface oficceProp {
   office: IMap,
   ymaps: any,
-  onClose: (() => void),
-  handleCheckInfo: ((office: IMap) => void)
+  onClose?: (() => void),
+  handleCheckInfo?: ((office: IMap) => void)
 }
 
 const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
-  const {UStore} = useContext(Context);
+  const {UStore, MStore} = useContext(Context);
   const [distance, setDistance] = useState();
 
   const icon = {
@@ -63,12 +63,17 @@ const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
             {distance && Math.trunc(distance)} метров
           </Text>
         </Stack>
-        <ActionIcon 
-          onClick={() => handleCheckInfo(office)}  
-          size={'md'} 
-          color="gray.5" variant="filled">
-          <IconChevronRight color="#ACB6C3" stroke={1.5} />
-        </ActionIcon>
+        {handleCheckInfo &&
+          <ActionIcon 
+            onClick={() => {
+              MStore.setMapCenterLocation({latitude: +office.latitude, longitude: +office.longitude})
+              handleCheckInfo(office)
+            }}  
+            size={'md'} 
+            color="gray.5" variant="filled">
+            <IconChevronRight color="#ACB6C3" stroke={1.5} />
+          </ActionIcon>
+        }
       </Flex>
       <Divider size={'1px'} w={'100%'} color="gray.4" style={{alignSelf: 'center'}}/>
     </Stack>  

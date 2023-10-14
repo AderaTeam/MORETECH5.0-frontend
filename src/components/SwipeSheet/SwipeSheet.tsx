@@ -7,10 +7,14 @@ import { IMap } from "../../models/IMap";
 import OfficeDrawerContent from "../../pages/MapPage/components/OfficeDraweContent";
 import { observer } from "mobx-react-lite";
 
-const SwipeSheet = () => {
+interface swipeProps {
+  isItemProp?: boolean
+}
+
+const SwipeSheet = ({isItemProp}: swipeProps) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const {DStore} = useContext(Context);
-  const [isItem, setIsItem] = useState<boolean>(false);
+  const {DStore, MStore} = useContext(Context);
+  const [isItem, setIsItem] = useState<boolean>(isItemProp || false);
   const [office, setOffice] = useState<IMap>();
 
   useEffect(() => {
@@ -38,10 +42,11 @@ const SwipeSheet = () => {
         position="bottom" 
         opened={opened} onClose={close}
         className="drawer"
+        size={isItem ? 350 : undefined}
       >
         {!isItem ? 
           <DrawerContent handleCheckInfo={handleCheckInfo} close={close}/> :
-          <OfficeDrawerContent close={close} office={office!}/>
+          <OfficeDrawerContent close={close} office={office! || MStore.office}/>
         }
       </Drawer>
     

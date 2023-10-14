@@ -7,6 +7,7 @@ export default class UserStore {
     user = {} as IUser;
     isAuth = false;
     isLoading = false;
+    userCurrentLocation = {} as ILocation | undefined;
     userLocation = {} as ILocation | undefined;
     userAddress: string | undefined = undefined;
     userCity: string | undefined = undefined;
@@ -16,6 +17,7 @@ export default class UserStore {
       this.userLocation = undefined;
       this.userAddress = undefined;
       this.userCity = undefined;
+      this.userCurrentLocation = undefined;
     }
 
     setAuth(bool: boolean) {
@@ -24,6 +26,10 @@ export default class UserStore {
 
     setUserLocation(userLocation: ILocation) {
       this.userLocation = userLocation;
+    }
+
+    setUserCurrentLocation(userCurrentLocation: ILocation) {
+      this.userCurrentLocation = userCurrentLocation;
     }
 
     setUserCity(city: string) {

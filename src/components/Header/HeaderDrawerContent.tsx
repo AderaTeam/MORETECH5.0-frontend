@@ -8,6 +8,8 @@ import { IconMapPin } from "@tabler/icons-react";
 import { Context } from "../../main";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router";
+import { MAP_ROUTE } from "../../utils/const";
 
 interface props {
   close: (() => void),
@@ -22,7 +24,8 @@ const HeaderDrawerContent = ({close}: props) => {
   const [selectValue, setSelectValue] = useState<string | null>(null);
   const [special, setSpecial] = useState<string[]>([]);
   const [address, setAddress] = useState<string>('');
-  const { UStore } = useContext(Context);
+  const { UStore, MStore } = useContext(Context);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSelectValue('');
@@ -48,6 +51,16 @@ const HeaderDrawerContent = ({close}: props) => {
         .then(response => {
           const result = response.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ');
           UStore.setUserLocation({longitude: result[0], latitude: result[1]});
+          UStore.setUserAddress(response.data.response.GeoObjectCollection.featureMember[0].GeoObject.name);
+          try {
+            $api.get(`/data/officeswithcriterias/?latitude=${UStore.userLocation?.latitude}&longitude=${UStore.userLocation?.longitude}&callButton=${special.includes('callButton')}&hasRamp=${special.includes('hasRamp')}&premium=${special.includes('premium')}&services=${selectValue}&userRole=${userRole}`)
+            .then(response => {
+              MStore.setOffices(response.data);
+              navigate(MAP_ROUTE, {state: 'all'});
+            });
+          } catch (error) {
+            console.log(error)
+          }
         })
       } catch (error) {
         console.log(error)
@@ -69,7 +82,7 @@ const HeaderDrawerContent = ({close}: props) => {
           radius="0.5rem"
           className='input'
         />
-        <ActionIcon onClick={() => setAddress(UStore.userAddress!)}  w={45} h={45} color="gray.5" variant="filled">
+        <ActionIcon onClick={() => setAddress(UStore.userCurrentLocation?.address!)}  w={45} h={45} color="gray.5" variant="filled">
           <IconMapPin color="#0A2896" stroke={1.5} />
         </ActionIcon>
       </Flex>

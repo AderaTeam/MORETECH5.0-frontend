@@ -18,7 +18,7 @@ const OfficeDrawerContent = ({close, office}: props) => {
   const {MStore} = useContext(Context);
 
   useEffect(() => {
-    if (office) {
+    if (office && office !== MStore.office) {
       MStore.setOffice(office);
     }
   }, [])

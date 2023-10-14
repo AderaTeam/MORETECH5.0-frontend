@@ -1,19 +1,25 @@
 import { Button, Stack } from "@mantine/core";
 import TitleWrapper from "../../../../components/Wrappers/TitleWrapper";
 import HomeServices from "./HomeServices";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import $api from "../../../../http";
 import { IconMapPin } from "@tabler/icons-react";
+import { Context } from "../../../../main";
+import { useNavigate } from "react-router";
+import { MAP_ROUTE } from "../../../../utils/const";
 
 interface Services {
   [key: string] : string,
 }
 
 const HomeForm = () => {
+  const {UStore, MStore} = useContext(Context);
   const [userRole, setUserRole] = useState<string>('individual');
   const [services, setServices] = useState<Services[]>();
   const [selectValue, setSelectValue] = useState<string | null>(null);
   const [special, setSpecial] = useState<string[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSelectValue('');
@@ -27,23 +33,15 @@ const HomeForm = () => {
   }, [userRole]);
 
   const handleSearch = () => {
-    console.log({
-      role: userRole, 
-      special: special, 
-      service: selectValue
-    })
-    /*try {
-      $api.post(``, 
-      {
-        role: userRole, 
-        special: special, 
-        service: selectValue
-      }).then(response => {
-        console.log(response.data);
+    try {
+      $api.get(`/data/officeswithcriterias/?latitude=${UStore.userLocation?.latitude}&longitude=${UStore.userLocation?.longitude}&callButton=${special.includes('callButton')}&hasRamp=${special.includes('hasRamp')}&premium=${special.includes('premium')}&services=${selectValue}&userRole=${userRole}`)
+      .then(response => {
+        MStore.setOffices(response.data);
+        navigate(MAP_ROUTE, {state: 'all'});
       });
     } catch (error) {
       console.log(error)
-    }*/
+    }
   }
 
   return (

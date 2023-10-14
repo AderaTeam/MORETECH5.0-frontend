@@ -1,12 +1,14 @@
 import { Flex, Radio, Stack, Text, ThemeIcon} from "@mantine/core";
 import { IconBusStop, IconCar, IconWalk } from "@tabler/icons-react";
+import { duration } from "../MapRoutePage";
 
 interface props {
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
+  duration: duration | undefined
 }
 
-const RadioGroup = ({value, setValue}: props) => {
+const RadioGroup = ({value, setValue, duration}: props) => {
 
   return (
     <Radio.Group value={value} onChange={setValue}>
@@ -18,7 +20,7 @@ const RadioGroup = ({value, setValue}: props) => {
             </ThemeIcon>
             <Stack spacing={2}>
               <Text size={'md'} lh={'21px'} color="gray.2">Пешком</Text>
-              <Text size={'md'} lh={'21px'} color="gray.0">10 мин</Text>
+              <Text size={'md'} lh={'21px'} color="gray.0">{duration ? duration['walk'] ? duration['walk'] : '-' : '-'}</Text>
             </Stack>
           </Flex>
           <Radio className="radio" color="brand.0" value="walk" />
@@ -30,7 +32,7 @@ const RadioGroup = ({value, setValue}: props) => {
             </ThemeIcon>
             <Stack spacing={2}>
               <Text size={'md'} lh={'21px'} color="gray.2">На машине</Text>
-              <Text size={'md'} lh={'21px'} color="gray.0">10 мин</Text>
+              <Text size={'md'} lh={'21px'} color="gray.0">{duration ? duration['car'] ? duration['car'] : '-' : '-'}</Text>
             </Stack>
           </Flex>
           <Radio className="radio" color="brand.0" value="car" />
@@ -42,7 +44,7 @@ const RadioGroup = ({value, setValue}: props) => {
             </ThemeIcon>
             <Stack spacing={2}>
               <Text size={'md'} lh={'21px'} color="gray.2">На общественном транспорте</Text>
-              <Text size={'md'} lh={'21px'} color="gray.0">10 мин</Text>
+              <Text size={'md'} lh={'21px'} color="gray.0">{duration ? duration['bus'] ? duration['bus'] : '-' : '-'}</Text>
             </Stack>
           </Flex>
           <Radio className="radio" color="brand.0" value="bus" />
