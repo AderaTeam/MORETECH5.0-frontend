@@ -9,7 +9,7 @@ import { useDisclosure } from "@mantine/hooks";
 import HeaderDrawerContent from "./HeaderDrawerContent";
 
 const MapHeader = () => {
-  const {UStore} = useContext(Context);
+  const {UStore, DStore} = useContext(Context);
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
   
@@ -27,7 +27,7 @@ const MapHeader = () => {
         console.log(error)
     }
     }
-  }, [])
+  }, []);
   
   return (
     <Flex 
@@ -48,7 +48,11 @@ const MapHeader = () => {
         <IconChevronLeft stroke={1.5} width={24} height={24} color="#ACB6C3"/>
       </ActionIcon>
       <Text size={'md'} lh={'21px'} color="gray.0">{UStore.userAddress}</Text>
-      <ActionIcon onClick={open} size={'lg'} variant="transparent" radius="xs">
+      <ActionIcon
+        opacity={DStore.isList || DStore.isItem ? 0.3 : 1} 
+        onClick={DStore.isList || DStore.isItem ? undefined : open} 
+        size={'lg'} variant="transparent" radius="xs"
+      >
         <IconEdit stroke={1.5} width={24} height={24} color="#ACB6C3"/>
       </ActionIcon>
 

@@ -7,14 +7,14 @@ import medium from '../../../assets/medium.svg';
 import hard from '../../../assets/hard.svg';
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../../main";
-
 interface oficceProp {
   office: IMap,
   ymaps: any,
-  close: (() => void)
+  onClose: (() => void),
+  handleCheckInfo: ((office: IMap) => void)
 }
 
-const OfficeItem = ({office, ymaps, close}: oficceProp) => {
+const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
   const {UStore} = useContext(Context);
   const [distance, setDistance] = useState();
 
@@ -38,6 +38,7 @@ const OfficeItem = ({office, ymaps, close}: oficceProp) => {
 
   return (
     <Stack spacing={11}>
+
       <Flex align={'center'} justify={'space-between'}>
         <Stack spacing={2}>
           <Box 
@@ -62,7 +63,10 @@ const OfficeItem = ({office, ymaps, close}: oficceProp) => {
             {distance && Math.trunc(distance)} метров
           </Text>
         </Stack>
-        <ActionIcon onClick={close}  size={'md'} color="gray.5" variant="filled">
+        <ActionIcon 
+          onClick={() => handleCheckInfo(office)}  
+          size={'md'} 
+          color="gray.5" variant="filled">
           <IconChevronRight color="#ACB6C3" stroke={1.5} />
         </ActionIcon>
       </Flex>

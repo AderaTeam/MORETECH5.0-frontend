@@ -55,9 +55,10 @@ const HomeServices = ({
               onChange={setSpecial}
             >
               <Stack spacing={4}>
-                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="ramp" label="Наличие пандуса" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="hasRamp" label="Наличие пандуса" />
                 <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="premium" label="Зона премиального обслуживания" />
-                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="parking" label="Парковка" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="parking" label="Наличие парковки рядом" />
+                <Checkbox style={{margin: '8px 0'}} className="checkbox" h={20} color="brand.0" value="callButton" label="Вызвать персонал для помощи" />
               </Stack>
             </Checkbox.Group>
           </Accordion.Panel>

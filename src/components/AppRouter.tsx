@@ -6,7 +6,7 @@ import { Context } from "../main";
 import { observer } from "mobx-react-lite";
 import { HeaderSimple } from "./Header/Header";
 import SwipeSheet from "./SwipeSheet/SwipeSheet";
-import { MAP_ROUTE } from "../utils/const";
+import { MAPROUTE_ROUTE, MAP_ROUTE } from "../utils/const";
 
 const AppRouter = () => {
   const { UStore } = useContext(Context);
@@ -20,14 +20,14 @@ const AppRouter = () => {
     return <Navigate to='/login' replace/>
   }*/
 
-  if (!UStore.userLocation && location.pathname === '/map') {
+  if (!UStore.userLocation && (location.pathname === '/map' || location.pathname === '/route')) {
     return <Navigate to='/' replace/>
   }
 
   return(
     <Flex>
       <Stack style={{width: '100vw'}} spacing="0rem">
-        <HeaderSimple/>
+        {location.pathname !== MAPROUTE_ROUTE && <HeaderSimple/>}
         <Routes>
           {/*UStore.isAuth && authRoutes.map(({path, Component}) => 
             <Route key={path} path={path} element={<Component/>}/>

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import DrawerTitle from "../SwipeSheet/DrawerTitle";
 import DrawerWrapper from "../Wrappers/DraweWrapper";
 import $api from "../../http";
-import HomeServices from "../../pages/HomePage/components/HomeForm/components/HomeServices";
+import HomeServices from "../../pages/HomePage/components/HomeForm/HomeServices";
 import { ActionIcon, Button, Flex, TextInput } from "@mantine/core";
 import { IconMapPin } from "@tabler/icons-react";
 import { Context } from "../../main";

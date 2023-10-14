@@ -1,6 +1,6 @@
 import { Button, Stack } from "@mantine/core";
 import TitleWrapper from "../../../../components/Wrappers/TitleWrapper";
-import HomeServices from "./components/HomeServices";
+import HomeServices from "./HomeServices";
 import { useEffect, useState } from "react";
 import $api from "../../../../http";
 import { IconMapPin } from "@tabler/icons-react";

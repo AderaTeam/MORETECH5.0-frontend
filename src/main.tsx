@@ -5,22 +5,26 @@ import { MantineProvider } from '@mantine/core';
 import UserStore from './store/UserStore.ts';
 import { MapStore } from './store/MapStore.ts';
 import { globalStyles } from './styles/globalStyles.ts';
+import { DrawerStore } from './store/DrawerStore.ts';
 
 interface State {
   UStore: UserStore,
-  MSore: MapStore,
+  MStore: MapStore,
+  DStore: DrawerStore,
 }
 
 const UStore = new UserStore();
-const MSore = new MapStore();
+const MStore = new MapStore();
+const DStore = new DrawerStore();
 
 export const Context = createContext<State>({
   UStore,
-  MSore
+  MStore,
+  DStore,
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Context.Provider value={{UStore, MSore}}>
+  <Context.Provider value={{UStore, MStore, DStore}}>
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS

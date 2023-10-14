@@ -1,5 +1,5 @@
-import { useContext, useRef } from "react";
-import { Clusterer, Map, Placemark } from "@pbe/react-yandex-maps";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Clusterer, Map, Placemark, useYMaps } from "@pbe/react-yandex-maps";
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
 import { Flex } from "@mantine/core"; 
@@ -8,10 +8,19 @@ import { YMapsModules } from "@pbe/react-yandex-maps/typings/util/typing";
 interface typesOfMissionProps {
   [key: string] : [YMapsModules | undefined, ((api: any) => void) | undefined],
 }
+interface routeType {
+  [key: string] : (ymaps: any) => void,
+}
 
-const MapComponent = () => {
-  const {UStore, MSore} = useContext(Context);
+interface mapProps {
+  value?: string,
+}
+
+
+const MapComponent = ({value}: mapProps) => {
+  const {UStore, MStore} = useContext(Context);
   const mission: string = history.state.usr;
+  const ymaps = useYMaps();
 
   const map = useRef<any>(null);
   const mapState = {
@@ -19,16 +28,30 @@ const MapComponent = () => {
     zoom: 15
   };
 
+  useEffect(() => {
+    if (value === 'car') {
+      map.current.geoObjects.removeAll();
+      addRoute(ymaps);
+    } else if (value === 'walk' && map.current) {
+      map.current.geoObjects.removeAll();
+      addRoute(ymaps);
+    } else if (value === 'bus' && map.current){
+      map.current.geoObjects.removeAll();
+      addRoute(ymaps);
+    }
+    
+  }, [value])
+
   const addRoute = (ymaps: any) => {
-    const pointA = [55.03123, 73.28743];
-    const pointB = [55.0443, 73.31522]; 
+    const pointA = [UStore.userLocation?.latitude!, UStore.userLocation?.longitude!];
+    const pointB = [MStore.office?.latitude, MStore.office?.longitude]; 
 
     const multiRoute = new ymaps.multiRouter.MultiRoute(
       {
         referencePoints: [pointA, pointB],
         params: {
-          routingMode: "pedestrian"
-        }
+          routingMode: value === 'car' ? undefined : value === 'bus' ? 'masstransit' : 'pedestrian',
+        } 
       },
       {
         boundsAutoApply: true
@@ -59,7 +82,7 @@ const MapComponent = () => {
           }}
         >
           {mission === 'all' && (
-            MSore.offices?.map(office => (
+            MStore.offices?.map(office => (
               <Placemark
                 key={office.id}
                 defaultGeometry={[office.latitude, office.longitude]}

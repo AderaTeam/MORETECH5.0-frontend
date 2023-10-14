@@ -87,6 +87,12 @@ export const globalStyles = {
       padding: '0'
     }
   },
+  '.radio': {
+    input: {
+      width: '24px',
+      height: '24px'
+    }
+  },
   '.mantine-kea9ny': {
     background: 'none',
   },
