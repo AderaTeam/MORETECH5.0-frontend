@@ -8,14 +8,15 @@ import { useNavigate } from "react-router";
 import { MAP_ROUTE } from "../../../../utils/const";
 
 const HomeMap = () => {
-  const {MSore} = useContext(Context);
+  const {MSore, UStore} = useContext(Context);
   const navigate = useNavigate();
 
   const handleSearch = () => {
     try {
-      $api.get('/data/offices').then(response => {
+      $api.get(`/data/offices/?latitude=${UStore.userLocation?.latitude}&longitude=${UStore.userLocation?.longitude}`).
+      then(response => { 
+        console.log(response.data);
         MSore.setOffices(response.data);
-        console.log(response.data)
         navigate(MAP_ROUTE, {state: 'all'});
       })
     } catch (error) {

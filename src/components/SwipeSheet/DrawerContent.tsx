@@ -11,7 +11,7 @@ const DrawerContent = ({close}: props ) => {
   return (
     <DrawerWrapper>
       <DrawerTitle title={'Отделения и банкоматы'} close={close}/>
-      <OfficesList/>
+      <OfficesList close={close}/>
     </DrawerWrapper>
   );
 }

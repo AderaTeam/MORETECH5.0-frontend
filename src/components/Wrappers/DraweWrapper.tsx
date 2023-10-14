@@ -17,6 +17,9 @@ const DrawerWrapper = ({children}: Props) => {
         <Stack>
           {children ? children[2] : <></>}
         </Stack>
+        <Stack>
+          {children ? children[3] : <></>}
+        </Stack>
     </Stack>
   );
 }

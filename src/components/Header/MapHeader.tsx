@@ -18,7 +18,10 @@ const MapHeader = () => {
       try {
         axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=${UStore.userLocation.longitude},${UStore.userLocation.latitude}`)
         .then(response => {
-          UStore.setUserAddress(response.data.response.GeoObjectCollection.featureMember[0].GeoObject.name)
+          UStore.setUserAddress(response.data.response.GeoObjectCollection.featureMember[0].GeoObject.name);
+          UStore.setUserCity(response.data.response.GeoObjectCollection.featureMember[0].GeoObject.
+            metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.
+            SubAdministrativeArea.Locality.LocalityName);
         })
     } catch (error) {
         console.log(error)
@@ -50,13 +53,14 @@ const MapHeader = () => {
       </ActionIcon>
 
       <Drawer
-      withCloseButton={false} 
-      position="bottom" 
-      opened={opened} onClose={close}
-      className="drawer"
-    >
-      <HeaderDrawerContent close={close}/>
-    </Drawer>
+        withCloseButton={false} 
+        position="bottom" 
+        opened={opened} onClose={close}
+        className="drawer"
+        h={441}
+      >
+        <HeaderDrawerContent close={close}/>
+      </Drawer>
     </Flex>
   );
 }

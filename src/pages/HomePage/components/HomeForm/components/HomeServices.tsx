@@ -37,7 +37,7 @@ const HomeServices = ({
         ]}
       />
       <Select
-        className="input"
+        className="select"
         label='Нужная услуга'
         placeholder="Оформление карты"
         searchable

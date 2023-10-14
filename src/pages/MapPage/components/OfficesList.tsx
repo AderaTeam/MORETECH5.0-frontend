@@ -4,7 +4,11 @@ import { Stack } from "@mantine/core";
 import OfficeItem from "./OfficeItem";
 import { useYMaps, withYMaps } from "@pbe/react-yandex-maps";
 
-const OfficesList = () => {
+interface props {
+  close: (() => void),
+}
+
+const OfficesList = ({close}: props) => {
   const {MSore} = useContext(Context);
   const Item = withYMaps(OfficeItem, true)
   const ymaps = useYMaps();
@@ -12,9 +16,7 @@ const OfficesList = () => {
   return (
     <Stack spacing={12}>
       {MSore.offices?.map((office) => {
-        if (office.id >= 279 && office.id < 284) {
-          return <Item key={office.id} office={office} ymaps={ymaps}/>
-        }
+        return <Item close={close} key={office.id} office={office} ymaps={ymaps}/>
       })}
     </Stack>
   );

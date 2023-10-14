@@ -20,6 +20,10 @@ const AppRouter = () => {
     return <Navigate to='/login' replace/>
   }*/
 
+  if (!UStore.userLocation && location.pathname === '/map') {
+    return <Navigate to='/' replace/>
+  }
+
   return(
     <Flex>
       <Stack style={{width: '100vw'}} spacing="0rem">

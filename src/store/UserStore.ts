@@ -9,11 +9,13 @@ export default class UserStore {
     isLoading = false;
     userLocation = {} as ILocation | undefined;
     userAddress: string | undefined = undefined;
+    userCity: string | undefined = undefined;
 
     constructor() {
       makeAutoObservable(this);
       this.userLocation = undefined;
       this.userAddress = undefined;
+      this.userCity = undefined;
     }
 
     setAuth(bool: boolean) {
@@ -22,6 +24,10 @@ export default class UserStore {
 
     setUserLocation(userLocation: ILocation) {
       this.userLocation = userLocation;
+    }
+
+    setUserCity(city: string) {
+      this.userCity = city;
     }
 
     setUserAddress(address: string) {

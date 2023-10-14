@@ -11,9 +11,10 @@ import { Context } from "../../../main";
 interface oficceProp {
   office: IMap,
   ymaps: any,
+  close: (() => void)
 }
 
-const OfficeItem = ({office, ymaps}: oficceProp) => {
+const OfficeItem = ({office, ymaps, close}: oficceProp) => {
   const {UStore} = useContext(Context);
   const [distance, setDistance] = useState();
 
@@ -61,7 +62,7 @@ const OfficeItem = ({office, ymaps}: oficceProp) => {
             {distance && Math.trunc(distance)} метров
           </Text>
         </Stack>
-        <ActionIcon size={'md'} color="gray.5" variant="filled">
+        <ActionIcon onClick={close}  size={'md'} color="gray.5" variant="filled">
           <IconChevronRight color="#ACB6C3" stroke={1.5} />
         </ActionIcon>
       </Flex>
