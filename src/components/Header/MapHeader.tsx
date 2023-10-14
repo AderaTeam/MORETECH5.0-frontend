@@ -1,14 +1,17 @@
-import { ActionIcon, Flex, Text } from "@mantine/core";
+import { ActionIcon, Drawer, Flex, Text } from "@mantine/core";
 import { IconChevronLeft, IconEdit } from "@tabler/icons-react";
 import { useContext, useEffect } from "react";
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useDisclosure } from "@mantine/hooks";
+import HeaderDrawerContent from "./HeaderDrawerContent";
 
 const MapHeader = () => {
   const {UStore} = useContext(Context);
   const navigate = useNavigate();
+  const [opened, { open, close }] = useDisclosure(false);
   
   useEffect(() => {
     if (UStore.userLocation && !UStore.userAddress) {
@@ -32,7 +35,8 @@ const MapHeader = () => {
         background: 'white',
         borderRadius: '0 0 24px 24px', 
         boxShadow: '0px 0px 12px 12px rgba(0, 14, 65, 0.13)',
-        position: 'sticky',
+        position: 'fixed',
+        width: '100%',
         top: 0,
         zIndex: 1000
       }}
@@ -41,9 +45,18 @@ const MapHeader = () => {
         <IconChevronLeft stroke={1.5} width={24} height={24} color="#ACB6C3"/>
       </ActionIcon>
       <Text size={'md'} lh={'21px'} color="gray.0">{UStore.userAddress}</Text>
-      <ActionIcon onClick={() => navigate('/')} size={'lg'} variant="transparent" radius="xs">
+      <ActionIcon onClick={open} size={'lg'} variant="transparent" radius="xs">
         <IconEdit stroke={1.5} width={24} height={24} color="#ACB6C3"/>
       </ActionIcon>
+
+      <Drawer
+      withCloseButton={false} 
+      position="bottom" 
+      opened={opened} onClose={close}
+      className="drawer"
+    >
+      <HeaderDrawerContent close={close}/>
+    </Drawer>
     </Flex>
   );
 }

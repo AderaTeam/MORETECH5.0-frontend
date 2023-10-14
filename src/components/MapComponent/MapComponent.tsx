@@ -1,14 +1,23 @@
 import { useContext, useRef } from "react";
-import { Map } from "@pbe/react-yandex-maps";
+import { Clusterer, Map, Placemark } from "@pbe/react-yandex-maps";
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
+import { Flex } from "@mantine/core"; 
+import { YMapsModules } from "@pbe/react-yandex-maps/typings/util/typing";
+import ymaps from "yandex-maps";
+
+interface typesOfMissionProps {
+  [key: string] : [YMapsModules | undefined, ((api: typeof ymaps) => void) | undefined],
+}
 
 const MapComponent = () => {
-  const {UStore} = useContext(Context);
+  const {UStore, MSore} = useContext(Context);
+  const mission: string = history.state.usr;
+
   const map = useRef<any>(null);
   const mapState = {
     center: [UStore.userLocation?.latitude!, UStore.userLocation?.longitude!],
-    zoom: 12
+    zoom: 15
   };
 
   const addRoute = (ymaps: any) => {
@@ -30,17 +39,38 @@ const MapComponent = () => {
     map.current.geoObjects.add(multiRoute);
   };
 
+  const typesOfMission: typesOfMissionProps = {
+    'all': [undefined, undefined],
+    'multiRoute': [["multiRouter.MultiRoute"], addRoute],
+  }
+
   return (
-    <div className="App">
-      
-        <Map
-          modules={["multiRouter.MultiRoute"]}
-          state={mapState}
-          instanceRef={map}
-          onLoad={addRoute}
-        />
-      
-    </div>
+    <Flex style={{height: '100vh', width: '100vw'}}>
+      <Map
+        style={{width: '100%'}}
+        modules={typesOfMission[mission][0]}
+        state={mapState}
+        instanceRef={map}
+        onLoad={typesOfMission[mission][1]}
+      >
+        <Clusterer
+          options={{
+            preset: "islands#invertedOrangeClusterIcons",
+            groupByCoordinates: false,
+          }}
+        >
+          {mission === 'all' && (
+            MSore.offices?.map(office => (
+              <Placemark
+                key={office.id}
+                defaultGeometry={[office.latitude, office.longitude]}
+                modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
+              />
+            ))
+          )}
+        </Clusterer>
+      </Map>
+    </Flex>
   );
 }
 

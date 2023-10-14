@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import {IMap} from '../models/IMap';
 
 export class MapStore {
   offices = {} as IMap[] | undefined;

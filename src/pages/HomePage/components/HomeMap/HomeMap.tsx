@@ -15,7 +15,7 @@ const HomeMap = () => {
     try {
       $api.get('/data/offices').then(response => {
         MSore.setOffices(response.data);
-        navigate(MAP_ROUTE);
+        navigate(MAP_ROUTE, {state: 'all'});
       })
     } catch (error) {
       console.log(error);

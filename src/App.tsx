@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom"
-import { YMaps } from "@pbe/react-yandex-maps"
+import { YMaps, withYMaps } from "@pbe/react-yandex-maps"
 import { Loader, Stack } from "@mantine/core"
 import { useContext, useEffect, useState } from "react"
 import { Context } from "./main"
@@ -12,6 +12,7 @@ import './styles/reset.css'
 import './fonts/VTBGroupUI-Bold/VTBGroupUI-Bold_stylesheet.css';
 import './fonts/VTBGroupUI-Medium/VTBGroupUI-Medium_stylesheet.css';
 import './fonts/VTBGroupUI-Regular/VTBGroupUI-Regular_stylesheet.css';
+import React from "react"
 
 const App = observer(function () {
   const { UStore } = useContext(Context);

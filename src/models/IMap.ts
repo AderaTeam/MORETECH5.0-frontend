@@ -1,4 +1,4 @@
-interface IMap {
+export interface IMap {
   address: string,
   distance: string,
   hasRamp: ["Y", "N"],

@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { Context } from "../main";
 import { observer } from "mobx-react-lite";
 import { HeaderSimple } from "./Header/Header";
+import SwipeSheet from "./SwipeSheet/SwipeSheet";
+import { MAP_ROUTE } from "../utils/const";
 
 const AppRouter = () => {
   const { UStore } = useContext(Context);
@@ -30,6 +32,7 @@ const AppRouter = () => {
             <Route key={path} path={path} element={<Component/>}/>
           )}
         </Routes>
+        {location.pathname === MAP_ROUTE && <SwipeSheet/>}
       </Stack>
     </Flex>
   );
