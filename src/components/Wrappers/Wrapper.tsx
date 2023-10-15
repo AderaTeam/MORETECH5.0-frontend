@@ -14,6 +14,18 @@ const Wrapper = ({children} : Props) => {
         <Stack>
           {children ? children[1] : <></>}
         </Stack>
+        <Stack>
+          {children ? children[2] : <></>}
+        </Stack>
+        <Stack>
+          {children ? children[3] : <></>}
+        </Stack>
+        <Stack>
+          {children ? children[4] : <></>}
+        </Stack>
+        <Stack>
+          {children ? children[5] : <></>}
+        </Stack>
     </Stack>
   );
 }

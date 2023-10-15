@@ -104,5 +104,29 @@ export const globalStyles = {
   },
   '.mantine-8ls6mm': {
     minHeight: '2.8125px'
+  },
+  '.mantine-o6r0rf': {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    }
+  },
+  '.mantine-15bsv2d': {
+    '&:hover': {
+      color: 'white',
+    }
+  },
+  '.accordionType2': {
+    borderBottom: 'none',
+    button: {
+      padding: 0,
+      '&:hover': {background: 'none'}
+    },
+    span: {
+      color: '#2F3441',
+      padding: 0
+    },
+    div: {
+      padding: 0
+    },
   }
 }

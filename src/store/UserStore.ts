@@ -5,7 +5,7 @@ import { ILocation } from "../models/ILocation";
 
 export default class UserStore {
     user = {} as IUser;
-    isAuth = false;
+    isAuth = true;
     isLoading = false;
     userCurrentLocation = {} as ILocation | undefined;
     userLocation = {} as ILocation | undefined;
@@ -59,9 +59,9 @@ export default class UserStore {
         }
     }
 
-    async registration(username: string, email: string, password: string) {
+    async registration(username: string, password: string) {
         try {
-            const response = await AuthServices.registration(username, email, password);
+            const response = await AuthServices.registration(username, password);
             localStorage.setItem('token', response.data.access_token);
             this.setAuth(true);
             this.setUser(response.data.user);

@@ -1,43 +1,43 @@
+import AdminPage from "../pages/AdminPage/AdminPage";
 import AuthPage from "../pages/AuthPage";
 import HomePage from "../pages/HomePage/";
 import MapPage from "../pages/MapPage/MapPage";
 import MapRoutePage from "../pages/MapRoutePage/MapRoutePage";
 
-import { HOME_ROUTE, LOGIN_ROUTE, MAPROUTE_ROUTE, MAP_ROUTE, REGISTRATION_ROUTE } from "./const";
-
-import { IconDeviceAnalytics } from '@tabler/icons-react';
+import { ADMIN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, MAPROUTE_ROUTE, MAP_ROUTE, REGISTRATION_ROUTE } from "./const";
 
 export const authRoutes = [
-  
+  {
+    path: ADMIN_ROUTE,
+    Component: AdminPage,
+    title: 'Управление отделениями',
+  },
 ]
 
 export const publicRoutes = [
   {
-      path: LOGIN_ROUTE,
-      Component: AuthPage,
-      title: 'login',
+    path: LOGIN_ROUTE,
+    Component: AuthPage,
+    title: 'login',
   },
   {
-      path: REGISTRATION_ROUTE,
-      Component: AuthPage,
-      title: 'registration',
+    path: REGISTRATION_ROUTE,
+    Component: AuthPage,
+    title: 'registration',
   },
   {
     path: HOME_ROUTE,
     Component: HomePage,
     title: 'Поиск отделения',
-    icon: IconDeviceAnalytics
   },
   {
     path: MAP_ROUTE,
     Component: MapPage,
     title: 'Карты',
-    icon: IconDeviceAnalytics
   },
   {
     path: MAPROUTE_ROUTE,
     Component: MapRoutePage,
     title: 'Карты',
-    icon: IconDeviceAnalytics
   },
 ]
