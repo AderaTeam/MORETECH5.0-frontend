@@ -70,7 +70,7 @@ const OfficeDrawerContent = ({close, office}: props) => {
           </Stack>
           <Stack spacing={8}>
             <Text size={'md'} lh={'21px'} color="gray.2">Количество людей в отделении:</Text>
-            <Text size={'md'} lh={'21px'} color="gray.0">{peopleCount}</Text>
+            <Text size={'md'} lh={'21px'} color="gray.0">{peopleCount ? peopleCount : 'n'}</Text>
           </Stack>
           <Stack spacing={8}>
             <Text size={'md'} lh={'21px'} color="gray.2">Адрес:</Text>
