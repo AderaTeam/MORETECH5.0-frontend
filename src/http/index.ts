@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = `http://178.170.192.87:9000`; //api.adera-team.ru
+export const API_URL = `https://api.adera-team.ru`; //api.adera-team.ru
 
 const $api = axios.create({
   withCredentials: true,
