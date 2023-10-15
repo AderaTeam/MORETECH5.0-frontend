@@ -4,10 +4,10 @@ import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
 import { Drawer, Flex } from "@mantine/core"; 
 import { YMapsModules } from "@pbe/react-yandex-maps/typings/util/typing";
-import { IMap } from "../../models/IMap";
 import OfficeDraweContent from "../../pages/MapPage/components/OfficeDraweContent";
 import { useDisclosure } from "@mantine/hooks";
 import { duration } from "../../pages/MapRoutePage/MapRoutePage";
+import { IMapResponse } from "../../models/response/IMapResponse";
 
 interface typesOfMissionProps {
   [key: string] : [YMapsModules | undefined, ((api: any) => void) | undefined],
@@ -22,7 +22,7 @@ interface mapProps {
 const MapComponent = ({value,setDuration}: mapProps) => {
   const {UStore, MStore, DStore} = useContext(Context);
   const [opened, { open, close }] = useDisclosure(false);
-  const mission: string = history.state.usr;
+  const mission: string = history.state.usr || 'view';
   const ymaps = useYMaps();
 
   const map = useRef<any>(null);
@@ -52,7 +52,7 @@ const MapComponent = ({value,setDuration}: mapProps) => {
 
   const addRoute = (ymaps: any) => {
     const pointA = [UStore.userLocation?.latitude!, UStore.userLocation?.longitude!];
-    const pointB = [MStore.office?.latitude, MStore.office?.longitude]; 
+    const pointB = [MStore.office?.office?.latitude, MStore.office?.office?.longitude]; 
 
     const multiRoute = new ymaps.multiRouter.MultiRoute(
       {
@@ -84,17 +84,18 @@ const MapComponent = ({value,setDuration}: mapProps) => {
   const typesOfMission: typesOfMissionProps = {
     'all': [undefined, undefined],
     'multiRoute': [["multiRouter.MultiRoute"], addRoute],
+    'view': [undefined, undefined]
   }
 
-  const handlePlacemarkClick = (office: IMap) => {
-    MStore.setMapCenterLocation({latitude: +office.latitude, longitude: +office.longitude});
+  const handlePlacemarkClick = (office: IMapResponse) => {
+    MStore.setMapCenterLocation({latitude: +office.office.latitude, longitude: +office.office.longitude});
     DStore.setIsItem(true);
     MStore.setOffice(office);
     open();
   }
 
   return (
-    <Flex style={{height: '100vh', width: '100vw'}}>
+    <Flex style={mission !== 'view' ? {height: '100vh', width: '100vw'} : {width: '327px', height: '250px'}}>
       <Drawer 
         withCloseButton={false} 
         position="bottom" 
@@ -131,8 +132,8 @@ const MapComponent = ({value,setDuration}: mapProps) => {
                   preset: 'islands#blueCircleDotIconWithCaption',
                 }}
                 onClick={() => handlePlacemarkClick(office)}
-                key={office.id}
-                defaultGeometry={[office.latitude, office.longitude]}
+                key={office.office.id}
+                defaultGeometry={[office.office.latitude, office.office.longitude]}
                 modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
               />
             ))

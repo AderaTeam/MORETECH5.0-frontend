@@ -20,6 +20,27 @@ export const globalStyles = {
       color: '#ACB6C3'
     }
   },
+  '.input2': {
+    input: {
+      height: '45px',
+      width: '327px',
+      border: '1px solid #DCE0EB',
+      borderRadius: '8px',
+      padding: '16px',
+      fontSize: '14px',
+      lineHeight: '21px',
+    },
+    label: {
+        marginBottom: '8px',
+        fontSize: '14px',
+        fontWeight: 400,
+        lineHeight: '21px',
+        color: '#2F3441'
+    },
+    'input::placeholder': {
+      color: '#ACB6C3'
+    }
+  },
   '.select': {
     input: {
       height: '42px',

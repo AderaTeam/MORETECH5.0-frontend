@@ -1,4 +1,4 @@
-import { Accordion, Stack, Title } from "@mantine/core";
+import { Accordion, Stack, TextInput, Title } from "@mantine/core";
 
 const AdminMembers = () => {
 
@@ -12,7 +12,48 @@ const AdminMembers = () => {
             </Title>
           </Accordion.Control>
           <Accordion.Panel>
-            123
+            <Stack mt={26} spacing={16}>
+              <TextInput
+                placeholder="5 шт"
+                label="Консультанты"
+                lh={'24px'}
+                size="lg"
+                withAsterisk
+                type="text"
+                radius="0.5rem"
+                className={'input2'}
+              />
+              <TextInput
+                placeholder="2 шт"
+                label="Главные менеджеры"
+                lh={'24px'}
+                size="lg"
+                withAsterisk
+                type="text"
+                radius="0.5rem"
+                className={'input2'}
+              />
+              <TextInput
+                placeholder="10 мин"
+                label="Средняя скорость обслуживания физ. лица"
+                lh={'24px'}
+                size="lg"
+                withAsterisk
+                type="text"
+                radius="0.5rem"
+                className={'input2'}
+              />
+              <TextInput
+                placeholder="15 мин"
+                label="Средняя скорость обслуживания юр. лица"
+                lh={'24px'}
+                size="lg"
+                withAsterisk
+                type="text"
+                radius="0.5rem"
+                className={'input2'}
+              />
+            </Stack>
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>

@@ -1,16 +1,16 @@
 import { Button } from "@mantine/core";
 import DrawerTitle from "../../../components/SwipeSheet/DrawerTitle";
 import DrawerWrapper from "../../../components/Wrappers/DraweWrapper";
-import { IMap } from "../../../models/IMap";
 import { useNavigate } from "react-router";
 import { MAPROUTE_ROUTE } from "../../../utils/const";
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect } from "react";
 import { Context } from "../../../main";
+import { IMapResponse } from "../../../models/response/IMapResponse";
 
 interface props {
   close: (() => void),
-  office: IMap,
+  office: IMapResponse,
 }
 
 const OfficeDrawerContent = ({close, office}: props) => {
@@ -25,7 +25,7 @@ const OfficeDrawerContent = ({close, office}: props) => {
 
   return (
     <DrawerWrapper>
-      <DrawerTitle title={office.salePointName} close={close}/>
+      <DrawerTitle title={office.office.salePointName} close={close}/>
       <Button
         onClick={() => navigate(MAPROUTE_ROUTE, {state: 'multiRoute'})}
         color="brand.0" 

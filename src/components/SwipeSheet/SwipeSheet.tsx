@@ -3,9 +3,9 @@ import { useDisclosure } from "@mantine/hooks";
 import DrawerContent from "./DrawerContent";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../main";
-import { IMap } from "../../models/IMap";
 import OfficeDrawerContent from "../../pages/MapPage/components/OfficeDraweContent";
 import { observer } from "mobx-react-lite";
+import { IMapResponse } from "../../models/response/IMapResponse";
 
 interface swipeProps {
   isItemProp?: boolean
@@ -15,7 +15,7 @@ const SwipeSheet = ({isItemProp}: swipeProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   const {DStore, MStore} = useContext(Context);
   const [isItem, setIsItem] = useState<boolean>(isItemProp || false);
-  const [office, setOffice] = useState<IMap>();
+  const [office, setOffice] = useState<IMapResponse>();
 
   useEffect(() => {
     DStore.setIsList(opened);
@@ -30,7 +30,7 @@ const SwipeSheet = ({isItemProp}: swipeProps) => {
     }
   }, [isItem]);
 
-  const handleCheckInfo = (office: IMap) => {
+  const handleCheckInfo = (office: IMapResponse) => {
     setOffice(office);
     setIsItem(true);
   }

@@ -27,7 +27,7 @@ const RouteDrawerContent = ({ value, setValue, setTab, duration}: props) => {
         </Stack>
         <Stack spacing={8}>
           <Text size={'md'} lh={'21px'} color="gray.2">Отделение банка:</Text>
-          <Text size={'md'} lh={'21px'} color="gray.0">{MStore.office?.address}</Text>
+          <Text size={'md'} lh={'21px'} color="gray.0">{MStore.office?.office.address}</Text>
         </Stack>
       </Stack>
       <RadioGroup duration={duration} value={value} setValue={setValue}/>

@@ -7,21 +7,23 @@ import medium from '../../../assets/medium.svg';
 import hard from '../../../assets/hard.svg';
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../../main";
+import { IMapResponse } from "../../../models/response/IMapResponse";
 interface oficceProp {
   office: IMap,
   ymaps: any,
   onClose?: (() => void),
-  handleCheckInfo?: ((office: IMap) => void)
+  handleCheckInfo?: ((office: IMapResponse) => void),
+  crowd: string
 }
 
-const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
+const OfficeItem = ({office, ymaps, handleCheckInfo, crowd}: oficceProp) => {
   const {UStore, MStore} = useContext(Context);
   const [distance, setDistance] = useState();
 
-  const icon = {
-    'easy': easy,
-    'medium': medium,
-    'hard': hard,
+  const icon : {[key: string] : string[] }= {
+    'Низкая': [easy, 'focus.1','#E7FFEB', '4px'],
+    'Средняя': [medium, 'focus.2','#FFF1DE', '10px'],
+    'Высокая': [hard, 'focus.3','#FFE4E5', '16px'],
   };
 
   useEffect(() => {
@@ -41,9 +43,9 @@ const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
 
       <Flex align={'center'} justify={'space-between'}>
         <Stack spacing={2}>
-          <Box 
+          {icon[crowd] && <Box 
             p={'2px 6px'} 
-            bg={'#E7FFEB'} 
+            bg={icon[crowd][2]} 
             style={{
               width: 'fit-content', 
               borderRadius: '12px',
@@ -51,11 +53,11 @@ const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
               alignItems: 'center'
             }}
           >
-              <Image mr={4} height={4} className="image" src={easy}/>
-              <Text color="focus.1" size={'sm'} lh={'15px'}>
-                Низкая
+              <Image mr={4} height={4} width={icon[crowd][3]} className="image" src={icon[crowd][0]}/>
+              <Text color={icon[crowd][1]} size={'sm'} lh={'15px'}>
+                {crowd}
               </Text>
-          </Box>
+          </Box>}
           <Text w={271} color="gray.0" size={'md'} lh={'21px'}>
             {office.salePointName}
           </Text>
@@ -67,7 +69,7 @@ const OfficeItem = ({office, ymaps, handleCheckInfo}: oficceProp) => {
           <ActionIcon 
             onClick={() => {
               MStore.setMapCenterLocation({latitude: +office.latitude, longitude: +office.longitude})
-              handleCheckInfo(office)
+              handleCheckInfo({office: office, crowd: crowd})
             }}  
             size={'md'} 
             color="gray.5" variant="filled">

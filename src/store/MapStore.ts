@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
-import {IMap} from '../models/IMap';
 import { ILocation } from "../models/ILocation";
+import { IMapResponse } from "../models/response/IMapResponse";
 
 export class MapStore {
-  offices = {} as IMap[] | undefined;
-  office = {} as IMap | undefined;
+  offices = {} as IMapResponse[] | undefined;
+  office = {} as IMapResponse | undefined;
   routeType: string = 'walk';
   timeStart = {} as {hours: string, minutes: string} | undefined;
   mapCenterLocation = {} as ILocation | undefined;
@@ -17,11 +17,11 @@ export class MapStore {
     this.timeStart = undefined;
   }
 
-  setOffices(offices: IMap[]) {
+  setOffices(offices: IMapResponse[]) {
     this.offices = offices;
   }
 
-  setOffice(office: IMap) {
+  setOffice(office: IMapResponse) {
     this.office = office;
   }
 

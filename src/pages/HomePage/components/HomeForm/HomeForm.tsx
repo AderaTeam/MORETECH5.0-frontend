@@ -36,6 +36,7 @@ const HomeForm = () => {
     try {
       $api.get(`/data/officeswithcriterias/?latitude=${UStore.userLocation?.latitude}&longitude=${UStore.userLocation?.longitude}&callButton=${special.includes('callButton')}&hasRamp=${special.includes('hasRamp')}&premium=${special.includes('premium')}&services=${selectValue}&userRole=${userRole}`)
       .then(response => {
+        console.log(response.data)
         MStore.setOffices(response.data);
         navigate(MAP_ROUTE, {state: 'all'});
       });

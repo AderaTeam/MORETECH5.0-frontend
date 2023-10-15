@@ -6,7 +6,7 @@ import { Context } from "../main";
 import { observer } from "mobx-react-lite";
 import { HeaderSimple } from "./Header/Header";
 import SwipeSheet from "./SwipeSheet/SwipeSheet";
-import { LOGIN_ROUTE, MAPROUTE_ROUTE, MAP_ROUTE, REGISTRATION_ROUTE } from "../utils/const";
+import { ADMIN_ROUTE, LOGIN_ROUTE, MAPROUTE_ROUTE, MAP_ROUTE, REGISTRATION_ROUTE } from "../utils/const";
 import { useDisclosure } from "@mantine/hooks";
 
 const AppRouter = () => {
@@ -20,7 +20,7 @@ const AppRouter = () => {
   }
 
   if (UStore.isAuth && (location.pathname === '/login' || location.pathname === REGISTRATION_ROUTE)) {
-    return <Navigate to='/admin' replace/>
+    return <Navigate to={ADMIN_ROUTE} replace/>
   }
 
   const Component = () => {

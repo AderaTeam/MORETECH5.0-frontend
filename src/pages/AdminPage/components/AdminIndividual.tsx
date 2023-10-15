@@ -12,7 +12,6 @@ const AdminIndividual = () => {
             </Title>
           </Accordion.Control>
           <Accordion.Panel>
-            123
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>

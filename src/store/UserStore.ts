@@ -5,7 +5,7 @@ import { ILocation } from "../models/ILocation";
 
 export default class UserStore {
     user = {} as IUser;
-    isAuth = true;
+    isAuth = false;
     isLoading = false;
     userCurrentLocation = {} as ILocation | undefined;
     userLocation = {} as ILocation | undefined;

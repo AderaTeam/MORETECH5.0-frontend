@@ -6,6 +6,7 @@ import { Context } from "../../../../main";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router";
 import { MAP_ROUTE } from "../../../../utils/const";
+import MapComponent from "../../../../components/MapComponent/MapComponent";
 
 const HomeMap = () => {
   const {MStore, UStore} = useContext(Context);
@@ -15,6 +16,7 @@ const HomeMap = () => {
     try {
       $api.get(`/data/offices/?latitude=${UStore.userLocation?.latitude}&longitude=${UStore.userLocation?.longitude}`).
       then(response => { 
+        console.log(response.data)
         MStore.setOffices(response.data);
         navigate(MAP_ROUTE, {state: 'all'});
       })
@@ -35,6 +37,7 @@ const HomeMap = () => {
       >
         <Text color="brand.0">Все отделения</Text>
       </Button>
+      <MapComponent/>
     </Stack>
   );
 }

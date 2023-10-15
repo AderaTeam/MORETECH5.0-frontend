@@ -1,11 +1,11 @@
-import { IMap } from "../../models/IMap";
+import { IMapResponse } from "../../models/response/IMapResponse";
 import OfficesList from "../../pages/MapPage/components/OfficesList";
 import DrawerWrapper from "../Wrappers/DraweWrapper";
 import DrawerTitle from "./DrawerTitle";
 
 interface props {
   close: (() => void),
-  handleCheckInfo: ((office: IMap) => void)
+  handleCheckInfo: ((office: IMapResponse) => void)
 }
 
 const DrawerContent = ({close, handleCheckInfo}: props ) => {

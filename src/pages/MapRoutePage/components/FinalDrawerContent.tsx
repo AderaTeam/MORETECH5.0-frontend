@@ -26,7 +26,7 @@ const FinalDrawerContent = ({setTab, value, close}: props) => {
   return (
     <DrawerWrapper>
       <DrawerTitle close={undefined} title='Ваш маршрут' />
-      {ymaps && <OfficeItem ymaps={ymaps} onClose={close} office={MStore.office!}/>}
+      {ymaps && <OfficeItem ymaps={ymaps} onClose={close} crowd={MStore.office?.crowd!} office={MStore.office?.office!}/>}
       <Stack spacing={16}>
         <Title size={'h4'} color="gray.0">
           {routeType[value]}

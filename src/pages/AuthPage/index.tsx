@@ -41,7 +41,7 @@ const AuthPage = observer(function() {
       await UStore.registration(username, password)
     }
     if (UStore.isAuth) {
-      navigate('/')
+      navigate('/admin')
     }
   };
 
